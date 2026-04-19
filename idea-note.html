@@ -168,7 +168,7 @@ function doUnlock() {
   }
 }
 
-window.onload = function() {
+document.addEventListener("DOMContentLoaded", function() {
   if (sessionStorage.getItem("in_auth") === PASSWD) {
     document.getElementById("lockScreen").style.display = "none";
     document.getElementById("loadingOverlay").style.display = "flex";
@@ -179,7 +179,7 @@ window.onload = function() {
   var inp = document.getElementById("lockInput");
   if (btn) btn.onclick = doUnlock;
   if (inp) inp.onkeydown = function(e){ if(e.key==="Enter") doUnlock(); };
-};
+});
 
 // ── API ──────────────────────────────────────────────────────────────────────
 async function apiGet(key){var res=await fetch(API_URL+"?key="+encodeURIComponent(key));return(await res.json()).value;}
