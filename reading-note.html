@@ -215,7 +215,11 @@ function updateSyncUI(){
     lastSync?`마지막 동기화: ${lastSync.toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"})}`:"대기 중";
 }
 
-function todayKey(){return new Date().toISOString().slice(0,10);}
+function todayKey(){
+  var d=new Date();
+  d.setTime(d.getTime()+(9*60*60*1000));
+  return d.toISOString().slice(0,10);
+}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2);}
 function langClass(lang){return lang==="영어"?"en":lang==="일본어"?"jp":"kr";}
 function langLabel(lang){return lang==="영어"?"EN":lang==="일본어"?"JP":"KR";}
