@@ -205,7 +205,11 @@ function updateSyncUI(){
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
-function todayKey(){return new Date().toISOString().slice(0,10);}
+function todayKey(){
+  var d=new Date();
+  d.setTime(d.getTime()+(9*60*60*1000));
+  return d.toISOString().slice(0,10);
+}
 function last7(){const a=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);a.push(d.toISOString().slice(0,10));}return a;}
 function last30(){const a=[];for(let i=29;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);a.push(d.toISOString().slice(0,10));}return a;}
 function calcStreak(h){let s=0;const d=new Date();while(true){const k=d.toISOString().slice(0,10);if(records[k]&&records[k][h]){s++;d.setDate(d.getDate()-1);}else break;}return s;}
