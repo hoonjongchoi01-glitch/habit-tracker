@@ -204,7 +204,11 @@ function updateSyncUI(){
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
-function todayKey(){return new Date().toISOString().slice(0,10);}
+function todayKey(){
+  var d=new Date();
+  d.setTime(d.getTime()+(9*60*60*1000));
+  return d.toISOString().slice(0,10);
+}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2);}
 function getPR(exercise){
   const vals=logs.filter(l=>l[exercise]&&l[exercise].weight>0).map(l=>({w:l[exercise].weight,d:l.date}));
