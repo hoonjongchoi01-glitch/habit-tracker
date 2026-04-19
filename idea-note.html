@@ -135,7 +135,7 @@
   <div class="lock-sub">비밀번호를 입력하세요</div>
   <input class="lock-input" type="password" id="lockInput" placeholder="••••" maxlength="20"/>
   <div class="lock-error" id="lockError"></div>
-  <button class="lock-btn" id="lockBtn">확인</button>
+  <button class="lock-btn" onclick="tryUnlock()">확인</button>
 </div>
 
 <div id="loadingOverlay" class="loading-overlay" style="display:none;">
@@ -166,21 +166,22 @@ function checkLock(){
     loadFromCloud();
   }
 }
-function bindLock(){
-  const btn=document.getElementById("lockBtn"),inp=document.getElementById("lockInput"),err=document.getElementById("lockError");
-  function tryUnlock(){
-    if(inp.value===PASSWD){
-      sessionStorage.setItem("in_auth",PASSWD);
-      document.getElementById("lockScreen").style.display="none";
-      document.getElementById("loadingOverlay").style.display="flex";
-      loadFromCloud();
-    } else {
-      err.textContent="비밀번호가 틀렸습니다.";inp.value="";inp.focus();
-      setTimeout(()=>err.textContent="",2000);
-    }
+function tryUnlock(){
+  const inp=document.getElementById("lockInput");
+  const err=document.getElementById("lockError");
+  if(inp.value===PASSWD){
+    sessionStorage.setItem("in_auth",PASSWD);
+    document.getElementById("lockScreen").style.display="none";
+    document.getElementById("loadingOverlay").style.display="flex";
+    loadFromCloud();
+  } else {
+    err.textContent="비밀번호가 틀렸습니다.";inp.value="";inp.focus();
+    setTimeout(()=>err.textContent="",2000);
   }
-  btn.addEventListener("click",tryUnlock);
-  inp.addEventListener("keydown",e=>{if(e.key==="Enter")tryUnlock();});
+}
+function bindLock(){
+  const inp=document.getElementById("lockInput");
+  if(inp)inp.addEventListener("keydown",e=>{if(e.key==="Enter")tryUnlock();});
 }
 
 // ── API ──────────────────────────────────────────────────────────────────────
