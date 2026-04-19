@@ -212,7 +212,11 @@ function updateSyncUI(){
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
-function todayKey(){return new Date().toISOString().slice(0,10);}
+function todayKey(){
+  var d=new Date();
+  d.setTime(d.getTime()+(9*60*60*1000));
+  return d.toISOString().slice(0,10);
+}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2);}
 function thisMonthCount(){var m=todayKey().slice(0,7);return ideas.filter(function(i){return i.date.slice(0,7)===m;}).length;}
 function runningCount(){return ideas.filter(function(i){return i.status==="실행중";}).length;}
